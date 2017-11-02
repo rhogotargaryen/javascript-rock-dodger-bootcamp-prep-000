@@ -28,19 +28,25 @@ function checkCollision(rock) {
   if (top > 360) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
 
-    // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
+
     const dodgerRightEdge = dodgerLeftEdge + 40;
 
     const rockLeftEdge = positionToInteger(rock.style.left)
 
-    // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
+
     const rockRightEdge = rockLeftEdge + 20;
 
-    return ((rockLeftEdge < dodgerLeftEdge && rockRightEdge > dodgerLeftEdge) ||
-                  (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) ||
+
+
+    if ((rockLeftEdge < dodgerLeftEdge && rockRightEdge > dodgerLeftEdge) ||
+                  (rockLeftEdge >= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge) ||
                   (rockLeftEdge < dodgerRightEdge && rockRightEdge > dodgerRightEdge))
+                  {
+      return true
+
     }
   }
+}
 
 
 function createRock(x) {
@@ -50,13 +56,20 @@ function createRock(x) {
   rock.style.left = `${x}px`;
 
   // Hmmm, why would we have used `var` here?
+
   var top = rock.style.top = 0;
+
+  var top = rock.style.top = 0
+
 
   /**
    * Now that we have a rock, we'll need to append
    * it to GAME and move it downwards.
    */
+
+
    GAME.appendChild(rock);
+
 
 
   /**
@@ -64,13 +77,17 @@ function createRock(x) {
    * seems like a good pace.)
    */
   function moveRock() {
-    rock.style.top = `${top += 2}px`;
+
+
+    rock.style.top = `${top += 2}px`
+
     // implement me!
     // (use the comments below to guide you!)
     /**
      * If a rock collides with the DODGER,
      * we should call endGame()
      */
+
      if (checkCollision(rock)) {
        return endGame();
      }
@@ -81,6 +98,16 @@ function createRock(x) {
      } else {
       rock.remove();
       ROCKS.shift();
+
+     if (checkCollision) {
+       endGame();
+     }
+
+     if (top < 400) {
+       window.requestAnimationFrame(moveRock);
+     } else {
+       rock.remove();
+
      }
 
     /**
@@ -95,7 +122,11 @@ function createRock(x) {
   }
 
   // We should kick of the animation of the rock around here
+
   window.requestAnimationFrame(moveRock);
+
+  window.requestAnimationFrame(moveRock)
+
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
   ROCKS.push(rock);
